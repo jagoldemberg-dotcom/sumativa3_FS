@@ -10,6 +10,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { AdminComponent } from './pages/admin/admin.component';
+import { ProveedoresComponent } from './pages/proveedores/proveedores.component';
 import { ForgotComponent } from './pages/forgot/forgot.component';
 import { AuthGuard } from './guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
@@ -26,6 +27,12 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { roles: ['admin'] }
+  },
+  {
+    path: 'admin/proveedores',
+    component: ProveedoresComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: { roles: ['admin'] }
   },

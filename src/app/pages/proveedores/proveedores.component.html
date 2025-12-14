@@ -1,0 +1,153 @@
+<main class="container py-4">
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <div>
+      <h1 class="h4 mb-1">Mantenedor de Proveedores</h1>
+      <p class="text-muted mb-0">
+        Seed inicial desde JSON (GitHub Pages) y CRUD persistido en LocalStorage.
+      </p>
+    </div>
+
+    <div class="d-flex gap-2">
+      <button type="button" class="btn btn-outline-secondary" (click)="mostrarJson = !mostrarJson">
+        {{ mostrarJson ? 'Ocultar JSON' : 'Mostrar JSON' }}
+      </button>
+      <button type="button" class="btn btn-outline-warning" (click)="reseed()">
+        Re-seed
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  <div *ngIf="exito" class="alert alert-success">{{ exito }}</div>
+
+  <section class="card mb-4">
+    <div class="card-body">
+      <h2 class="h6 mb-3">{{ modoEdicion ? 'Editar proveedor' : 'Crear proveedor' }}</h2>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Nombre</label>
+            <input class="form-control" formControlName="nombre" />
+            <div class="text-danger small" *ngIf="f['nombre'].touched && f['nombre'].invalid">
+              Nombre es obligatorio (mín. 2).
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Contacto</label>
+            <input class="form-control" formControlName="contacto" />
+            <div class="text-danger small" *ngIf="f['contacto'].touched && f['contacto'].invalid">
+              Contacto es obligatorio (mín. 2).
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Email</label>
+            <input class="form-control" formControlName="email" />
+            <div class="text-danger small" *ngIf="f['email'].touched && f['email'].invalid">
+              Email válido es obligatorio.
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Teléfono</label>
+            <input class="form-control" formControlName="telefono" />
+            <div class="text-danger small" *ngIf="f['telefono'].touched && f['telefono'].invalid">
+              Teléfono es obligatorio (mín. 6).
+            </div>
+          </div>
+
+          <div class="col-md-8">
+            <label class="form-label">Dirección</label>
+            <input class="form-control" formControlName="direccion" />
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Activo</label>
+            <select class="form-select" formControlName="activo">
+              <option [ngValue]="true">Sí</option>
+              <option [ngValue]="false">No</option>
+            </select>
+          </div>
+
+          <div class="col-12">
+            <label class="form-label">Categorías (separadas por comas)</label>
+            <input class="form-control" formControlName="categorias" placeholder="Ej: Audio, Mouse, Teclados" />
+          </div>
+
+          <div class="col-12 d-flex gap-2">
+            <button class="btn btn-primary" type="submit">
+              {{ modoEdicion ? 'Guardar cambios' : 'Crear' }}
+            </button>
+            <button *ngIf="modoEdicion" class="btn btn-outline-secondary" type="button" (click)="cancelarEdicion()">
+              Cancelar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-body">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <h2 class="h6 mb-0">Listado</h2>
+        <span class="badge bg-secondary">{{ proveedores.length }} proveedores</span>
+      </div>
+
+      <div *ngIf="cargando" class="text-muted">Cargando...</div>
+
+      <div *ngIf="!cargando && proveedores.length === 0" class="text-muted">
+        No hay proveedores.
+      </div>
+
+      <div class="table-responsive" *ngIf="!cargando && proveedores.length > 0">
+        <table class="table table-sm align-middle">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Contacto</th>
+              <th>Email</th>
+              <th>Teléfono</th>
+              <th>Activo</th>
+              <th style="width: 180px">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of proveedores">
+              <td>{{ p.id }}</td>
+              <td>
+                <div class="fw-semibold">{{ p.nombre }}</div>
+                <div class="text-muted small" *ngIf="p.categorias?.length">
+                  {{ p.categorias?.join(' · ') }}
+                </div>
+                <div class="text-muted small" *ngIf="p.direccion">
+                  {{ p.direccion }}
+                </div>
+              </td>
+              <td>{{ p.contacto }}</td>
+              <td>{{ p.email }}</td>
+              <td>{{ p.telefono }}</td>
+              <td>
+                <span class="badge" [ngClass]="p.activo ? 'bg-success' : 'bg-danger'">
+                  {{ p.activo ? 'Sí' : 'No' }}
+                </span>
+              </td>
+              <td class="d-flex gap-2">
+                <button class="btn btn-sm btn-outline-primary" (click)="editar(p)">Editar</button>
+                <button class="btn btn-sm btn-outline-danger" (click)="eliminar(p)">Eliminar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div *ngIf="mostrarJson" class="mt-3">
+        <h3 class="h6">JSON actual (LocalStorage)</h3>
+        <pre class="bg-light p-3 rounded border small mb-0" style="max-height: 320px; overflow:auto;">{{ proveedores | json }}</pre>
+      </div>
+    </div>
+  </section>
+</main>

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -17,6 +18,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { ForgotComponent } from './pages/forgot/forgot.component';
+import { ProveedoresComponent } from './pages/proveedores/proveedores.component';
 
 import { ProductService } from './services/product.service';
 
@@ -34,10 +36,12 @@ import { ProductService } from './services/product.service';
     ProfileComponent,
     OrdersComponent,
     AdminComponent,
-    ForgotComponent
+    ForgotComponent,
+    ProveedoresComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     FormsModule,          // lo dejamos por compatibilidad con otras partes
     ReactiveFormsModule,  // <--- CLAVE para formularios reactivos
     AppRoutingModule

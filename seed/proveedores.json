@@ -1,0 +1,41 @@
+[
+  {
+    "id": 1,
+    "nombre": "RataSupply Ltda.",
+    "contacto": "Carla Rivas",
+    "email": "contacto@ratasupply.cl",
+    "telefono": "+56 9 1111 2222",
+    "direccion": "Av. Queso 123, Santiago",
+    "activo": true,
+    "categorias": [
+      "Accesorios",
+      "Periféricos"
+    ]
+  },
+  {
+    "id": 2,
+    "nombre": "Bodega Bigotes SpA",
+    "contacto": "Tomás Lillo",
+    "email": "ventas@bigotes.cl",
+    "telefono": "+56 9 3333 4444",
+    "direccion": "Camino del Puerto 456, Talcahuano",
+    "activo": true,
+    "categorias": [
+      "Teclados",
+      "Mouse"
+    ]
+  },
+  {
+    "id": 3,
+    "nombre": "Distribuidora Roedor",
+    "contacto": "Mabel Soto",
+    "email": "soporte@roedor.cl",
+    "telefono": "+56 9 5555 6666",
+    "direccion": "Los Túneles 789, Concepción",
+    "activo": false,
+    "categorias": [
+      "Audio",
+      "Gaming"
+    ]
+  }
+]

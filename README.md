@@ -25,3 +25,61 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+---
+
+## Mantenedor de Proveedores (JSON seed + CRUD LocalStorage)
+
+La app incluye un mantenedor de **Proveedores** accesible solo para rol **admin**:
+
+- Ruta: `/admin/proveedores`
+- Seed inicial: lee un JSON remoto (recomendado subirlo a **GitHub Pages**)
+- CRUD: Create/Update/Delete se persisten en **LocalStorage**
+
+### 1) Configurar URL del JSON remoto
+
+Edita en: `src/app/services/proveedor.service.ts`
+
+```ts
+private readonly seedUrl = 'https://TU_USUARIO.github.io/TU_REPO/proveedores.json';
+```
+
+> Si el JSON remoto no responde, la app hace fallback a `assets/data/proveedores.json`.
+
+### 2) Formato de proveedores.json
+
+El archivo debe ser un arreglo:
+
+```json
+[
+  {
+    "id": 1,
+    "nombre": "RataSupply Ltda.",
+    "contacto": "Carla Rivas",
+    "email": "contacto@ratasupply.cl",
+    "telefono": "+56 9 1111 2222",
+    "direccion": "Av. Queso 123, Santiago",
+    "activo": true,
+    "categorias": ["Accesorios", "Periféricos"]
+  }
+]
+```
+
+---
+
+## Docker (FrontEnd Angular)
+
+### Build imagen
+
+```bash
+docker build -t tiendaderatas-frontend .
+```
+
+### Run contenedor
+
+```bash
+docker run --rm -p 8080:80 tiendaderatas-frontend
+```
+
+Abrir: `http://localhost:8080`
