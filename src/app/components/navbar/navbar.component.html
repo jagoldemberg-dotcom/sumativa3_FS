@@ -25,6 +25,9 @@
             <span class="badge bg-light text-primary">{{ totalItems }}</span>
           </a>
         </li>
+        <li class="nav-item" *ngIf="esAdmin">
+          <a class="nav-link" routerLink="/admin" routerLinkActive="active">Admin</a>
+        </li>
       </ul>
 
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -56,6 +59,9 @@
               </li>
               <li *ngIf="usuarioActual?.rol === 'admin'">
                 <a class="dropdown-item" routerLink="/admin">Panel administrador</a>
+              </li>
+              <li *ngIf="usuarioActual?.rol === 'admin'">
+                <a class="dropdown-item" routerLink="/admin/proveedores">Mantenedor proveedores</a>
               </li>
               <li><hr class="dropdown-divider" /></li>
               <li>

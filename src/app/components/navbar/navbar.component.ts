@@ -29,4 +29,8 @@ export class NavbarComponent {
   cerrarSesion(): void {
     this.authService.cerrarSesion();
   }
+
+  get esAdmin(): boolean {
+    return this.usuarioActual?.rol === 'admin';
+  }
 }
