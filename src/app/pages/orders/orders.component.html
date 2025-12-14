@@ -1,0 +1,30 @@
+<main class="container py-4">
+  <h1 class="h4 mb-3">Mis compras</h1>
+
+  <div *ngIf="pedidos.length > 0; else sinPedidos">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Fecha</th>
+            <th>Total</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of pedidos">
+            <td>{{ p.id }}</td>
+            <td>{{ p.fecha }}</td>
+            <td>{{ p.total | currency:'CLP':'symbol-narrow' }}</td>
+            <td>{{ p.estado }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <ng-template #sinPedidos>
+    <p>No tienes compras registradas todavía.</p>
+  </ng-template>
+</main>
