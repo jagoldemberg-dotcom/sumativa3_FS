@@ -19,7 +19,7 @@ export class ProveedorService {
    * URL del seed (GitHub Pages).
    * Ejemplo: https://<usuario>.github.io/<repo>/proveedores.json
    */
-  private readonly seedUrl = 'https://TU_USUARIO.github.io/TU_REPO/proveedores.json';
+  private readonly seedUrl = 'https://jagoldemberg-dotcom.github.io/proveedoreseed/proveedores.json';
 
   private proveedoresSubject = new BehaviorSubject<Proveedor[]>([]);
   proveedores$ = this.proveedoresSubject.asObservable();
