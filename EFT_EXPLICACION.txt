@@ -1,0 +1,122 @@
+SUMATIVA 3 / EVALUACIÓN FINAL TRANSVERSAL (FrontEnd Angular)
+DOCUMENTO EXPLICATIVO (librerías, documentación, JSON consumido, pruebas y checklist)
+
+1) Qué se entrega en el ZIP
+- Código fuente completo de la aplicación Angular.
+- Archivo(s) JSON manipulados por la aplicación:
+  - src/assets/data/proveedores.json  (seed local)
+  - seed/proveedores.json            (copia/seed de respaldo)
+- Documentación generada (Compodoc):
+  - Carpeta: /docs (incluye index.html y navegación de módulos, componentes, servicios, rutas, etc.)
+
+2) Tema / Caso desarrollado
+Aplicación tipo “tienda” (ventas): catálogo de productos, detalle de producto, carrito de compras, historial de compras,
+autenticación de usuarios y funcionalidades de administración (rol admin) + mantenedor de proveedores consumiendo JSON.
+
+3) Requisitos de la pauta / instrucciones y cómo se cubren en el proyecto
+
+3.1 Interfaz responsive (mínimo 3 tamaños, GRID 12 columnas)
+- Se utiliza Bootstrap (grid 12 columnas) en pantallas principales (ejemplos de clases):
+  - col-12 (mobile)
+  - col-md-* (tablet)
+  - col-lg-* (desktop)
+- Ejemplos de pantallas con 3 breakpoints: Login, Register, Home, Products, Proveedores, Profile.
+
+3.2 Uso de HTML + CSS + Bootstrap + JS (o JQuery) + Angular
+- Framework: Angular
+- Estilos: Bootstrap + styles.css + assets/css (si aplica).
+- Importante: Para que componentes Bootstrap como “dropdown” funcionen correctamente, se recomienda incluir el JS de Bootstrap:
+  - angular.json -> build.options.scripts: ["node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"]
+  (Si NO se usan dropdown/modals, puede omitirse.)
+
+3.3 Trabajo con repositorio GIT / colaboración
+- El proyecto incluye configuración típica (.gitignore, etc.).
+- Para la entrega en AVA: adjuntar links de Git y Trello.
+  - GIT: [PEGA_AQUÍ_TU_LINK]
+  - TRELLO: [PEGA_AQUÍ_TU_LINK]
+
+3.4 Pantallas obligatorias + formularios con validaciones
+Pantallas obligatorias solicitadas:
+- Inicio de sesión: /login (Reactive Forms, validación required + email)
+- Registro: /register (Reactive Forms, validación nombre/email/edad/password)
+- Recuperar contraseña: /forgot (Reactive Forms, validación email)
+- Modificación de perfil: /profile (Reactive Forms, validación nombre/email/edad, cambio de contraseña opcional)
+Páginas internas según temática “ventas”:
+- Home: /
+- Productos: /products
+- Detalle producto: /product/:id
+- Carrito: /cart
+- Mis compras: /orders
+- Panel Admin: /admin
+- Mantenedor Proveedores (Admin): /admin/proveedores
+
+3.5 Roles / privilegios (mínimo 2 roles)
+- Roles definidos: 'admin' y 'cliente'
+- Rutas protegidas por guards:
+  - /admin y /admin/proveedores requieren AuthGuard + RoleGuard (solo admin)
+- En el navbar se muestra menú de “Panel administrador” solo cuando usuarioActual.rol === 'admin'
+Credenciales de prueba (admin por defecto):
+- Email: admin@tiendaderatas.cl
+- Password: Admin123*
+(El usuario “cliente” se crea con el Registro.)
+
+3.6 Validaciones de seguridad de contraseña (mínimo 4)
+Registro y Perfil aplican validaciones de password:
+- required
+- minLength(6)
+- maxLength(18)
+- pattern: al menos 1 mayúscula + 1 número
+Sugerencia para cumplir al 100% con el ejemplo de “caracteres especiales”:
+- Ajustar el pattern para exigir 1 caracter especial (por ejemplo: !@#$%^&* etc.)
+
+3.7 Pruebas unitarias (mínimo 6 con Jasmine + Karma)
+El proyecto incluye pruebas unitarias (>= 6). En total se encontraron 15 “it(...)”.
+Archivos de pruebas relevantes:
+- src/app/app.component.spec.ts (1)
+- src/app/pages/login/login.component.spec.ts (5)
+- src/app/pages/register/register.component.spec.ts (3)
+- src/app/services/cart.service.spec.ts (3)
+- src/app/services/product.service.spec.ts (3)
+
+Cómo ejecutarlas:
+- npm test
+o
+- ng test
+
+(Para el video se recomienda mostrar la ejecución y el reporte en consola/navegador.)
+
+3.8 Consumo y manipulación de JSON (backend “simulado”)
+- La aplicación consume un JSON de proveedores:
+  - Seed remoto (GitHub Pages): https://jagoldemberg-dotcom.github.io/proveedoreseed/proveedores.json
+  - Fallback local: assets/data/proveedores.json
+- La manipulación (CRUD) se realiza sobre LocalStorage como simulación (POST/PUT/DELETE).
+- Funcionalidad extra: “Reset Seed” restaura la lista desde el JSON (útil para demostrar en video).
+
+Nota / Sugerencia (si el docente exige que TODA la data venga de JSON):
+- Migrar el catálogo de productos a assets/data/productos.json y cargarlo con HttpClient.
+  (Actualmente los productos están hardcodeados en ProductService.)
+
+4) Documentación generada (Compodoc)
+- Ya existe una carpeta /docs en el proyecto (documentación generada).
+- Para regenerar:
+  - npm run compodoc
+- Para servir la documentación en local:
+  - npm run compodoc:serve
+  (Luego abrir la URL indicada por consola, normalmente http://localhost:8080)
+
+5) Guion sugerido para el video (Parte II)
+1. Mostrar ejecución: ng serve y navegar por:
+   - Home -> Products -> Product detail -> Cart -> Checkout simulado -> Orders
+2. Mostrar login con “cliente” (registrado) y luego con “admin”.
+3. Mostrar diferencias de rol:
+   - Cliente: no ve admin en el menú, solo perfil y compras.
+   - Admin: ve “Panel administrador” + “Mantenedor proveedores”.
+4. Mostrar consumo de JSON:
+   - Entrar a /admin/proveedores
+   - Crear/editar/eliminar proveedor
+   - Usar “Reset Seed” para demostrar que vuelve a cargar desde JSON
+5. Mostrar responsive (DevTools) en 3 tamaños (mobile/tablet/desktop).
+6. Ejecutar pruebas unitarias: ng test (mostrar resultado).
+7. Mostrar documentación: abrir docs/index.html o compodoc:serve.
+
+Fin del documento.
